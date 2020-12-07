@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "win",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "F:/opencv/opencv3.4.2/build/x64/mingw/install/include",
+                "D:/OpenCV4430/opencv/sources/include/opencv2",
+                "F:/opencv/opencv3.4.2/build/x64/mingw/install/include/opencv"                
+            ],
+            "defines": [],
+            "compilerPath": "F:/MinGW/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/bin/gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
