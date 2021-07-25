@@ -71,6 +71,7 @@ public:
             return false;
         }
     }
+private:
     // 属性
     int m_L;
     int m_W;
