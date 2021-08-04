@@ -21,15 +21,15 @@ using namespace std;
 // ######## 文本文件写文件 ########
 // 写文件步骤如下：
 // 1.包含头文件
-// #include <fstream>
+//     #include <fstream>
 // 2.创建流对象
-// ofstream ofs;
+//     ofstream ofs;
 // 3.打开文件
-// ofs.open("文件路径", 打开方式)：
+//     ofs.open("文件路径", 打开方式)：
 // 4.写数据
-// ofs << "要写入的数据"
+//     ofs << "要写入的数据"
 // 5.关闭文件
-// ofs.close()
+//     ofs.close()
 
 // 文件打开方式：
 // 1.  ios::in      为读文件而打开文件
@@ -43,6 +43,13 @@ using namespace std;
 // 例如：用二进制方式写文件 iOS::binary | ios::out
 
 // 文本文件写文件
+
+// 总结：
+// 文件操作必须包含头文件 fstream
+// 读文件可以利用 ofstream 或者 fstream
+// 打开文件时候需要指定操作文件的路径，以及打开的方式
+// 利用 << 可以像文件中写数据
+// 操作完毕后，要关闭文件
 
 void test01()
 {
