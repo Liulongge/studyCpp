@@ -17,15 +17,62 @@ using namespace std;
 // 排序规则从大到小，排序算法为选择排序
 // 分别利用 char数组 和 int数组 进行测试
 
+// 交换函数模板
+template<class T>
+void mySwap(T&a, T&b)
+{
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+// 排序算法
+template<typename T>
+void mySort(T arr[], int len)
+{
+    for(int i = 0; i < len; i++)
+    {
+        int max = i;
+        for(int j = i + 1; j < len; j++)
+        // 认定最大值比遍历出的数值小，说明j下标的最大值
+        {
+            if(arr[max] < arr[j])
+            {
+                max = j;
+            }
+        }
+        if(max != i)
+        {
+            // 交换max和i元素
+            mySwap(arr[max], arr[i]);
+        }
+    }
+}
+
+// 打印数组的模板
+template<class T>
+void printArray(T arr[], int len)
+{
+    for(int i = 0; i < len; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
 
 void test01()
 {
-
+    // 测试char数组
+    char charArr[] = "badcfe";
+    int num = sizeof(charArr);
+    mySort(charArr, num);
+    printArray(charArr, num);
 }
 
 int main()
 {
     test01();
+
 
     return 0;
 }
