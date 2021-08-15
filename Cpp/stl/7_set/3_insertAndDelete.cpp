@@ -18,7 +18,7 @@ using namespace std;
 
 // 函数原型：
 // insert(elem);      在容器中插入元素
-// clear();           清楚容器中元素
+// clear();           清除容器中元素
 // erase(pos);        删除pos迭代其所指的元素，返回下一个元素迭代器
 // erase(beg, end);   删除区间[beg, end)的所有元素，返回下一个元素的迭代器
 // erase(elem);       删除容器中值为elem的元素
