@@ -70,6 +70,7 @@ void mySwap03(int &a, int &b)
 
 void test03()
 {
+    cout << " -------- test03 -------- "<< endl;
     int a = 10;
     int b =20;
     mySwap01(a, b);
@@ -89,9 +90,51 @@ void test03()
 }
 
 // 引用做函数返回值
-void test04()
+// 不要返回局部变量的引用
+// 函数调用可以作为左值
+int& test04()
 {
+    cout << " -------- test04 -------- "<< endl;
+    static int a = 10;
+    return a;
+}
 
+// 引用的本质：引用的本质在C++内部实现是一个指针常量
+// 发现是引用，转换为 int* const ref = & a;
+void func(int& ref)
+{
+    ref = 100;  // ref是引用，转换为 *ref = 10;
+}
+
+void test05()
+{
+    cout << " -------- test05 -------- "<< endl;
+    int a = 10;
+
+    int& ref = a;  // 自动转换为 int* const ref = & a；指针常量是指针指向不可更改，也说明为什么引用不可更改
+    ref = 20;      // 内部发现ref是引用，自动帮我们转换为： *ref = 20;
+    cout << "a = " << a << endl;
+    cout << "ref = " << ref << endl;
+    func(a);
+}
+
+// 常量引用
+// 作用：常量引用主要用来修饰形参，防止误操作
+// 在函数形参列表中，可以加 const 修饰形参，防止形参改变实参
+void showValue(const int  &val)
+{
+    cout << "val = " << val << endl; 
+}
+
+void test06()
+{
+    cout << " -------- test06 -------- "<< endl;
+    int a = 100;
+    // 加上 const 之后，编译器将代码修改为 int temp = 10, const int & ref = temp;
+    const int & ref = 10;
+    cout << "ref = " << ref << endl;
+
+    showValue(a);
 }
 
 int main()
@@ -99,6 +142,10 @@ int main()
     test01();
     test02();
     test03();
-    test04();
+    cout << test04() << endl;
+    test04() = 1000;  // 如果函数调用的返回值是引用，这个函数调用可以作为左值
+    cout << test04() << endl;
+    test05();
+    test06();
     return 0;
 }
