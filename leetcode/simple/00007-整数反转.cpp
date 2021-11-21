@@ -17,6 +17,7 @@ public:
     int reverse(int x) {
         int rev = 0;
         while (x != 0) {
+            // “截止到十位数 已经大于最大值”  或者  ”截止到十位数 等于最大值的十位数，且 个位数又大于个位数 7“
             if ((rev > (INT_MAX / 10)) || ((rev == INT_MAX / 10) && ((x % 10) > (INT_MAX % 10)))){
                 return 0;
             }
