@@ -13,12 +13,12 @@ int accumulated_floor_number = 0;
 typedef enum
 { 
     _idle = 0, _goingUp = 1, _goingDown = 2, _AtTop = 3, _AtBottom = 4,  _malfunction = 5, _unexpected = 6, _end = 7 
-} state_codes;
+} state_codes_e;
 
 typedef enum
 {
-    up = 0, down=1, halt = 2, top = 3, bottom = 4, fail = 5, quit = 6 
-} ret_codes;
+    up = 0, down = 1, halt = 2, top = 3, bottom = 4, fail = 5, quit = 6 
+} ret_codes_e;
 
 int event_idle(void)
 {
@@ -141,18 +141,19 @@ int lookup_transitions[][7] =
 
 int main()
 {
-    state_codes cur_state = _idle;
-    ret_codes rc;
-    int (* state_func)(void);
+    state_codes_e cur_state = _idle;
+    ret_codes_e ret_state;
+    int (* event_func)(void);
     printf("Start the elevator!\n");
 
     for (;;) 
     {
-        state_func = event[cur_state]; // 从列表中找到对应状态的执行函数
-        rc = state_func();             // 函数执行
+        printf("run FSM \n");
+        event_func = event[cur_state]; // 从列表中找到对应状态的执行函数
+        ret_state = event_func();             // 函数执行
         if (_end == cur_state)
             break;
-        cur_state = lookup_transitions[cur_state][rc];
+        cur_state = lookup_transitions[cur_state][ret_state]; // 查表
     }
     printf("END.");
     return 0;
