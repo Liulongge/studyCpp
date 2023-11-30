@@ -40,12 +40,15 @@ public:
         adjList_[node_ref].is_error = true;
         if(adjList_[node_ref].is_root)
         {
+            error_node_ref_.clear();
             DFS(node_ref);
             cout << "Depth First Traversal: ";
+            error_node_ref_.unique(); // 元素去重
             for (const auto& element : error_node_ref_)
             {
                 printf("%x ", element);
             }
+            
             printf("\n");
         }
     }
@@ -61,8 +64,26 @@ public:
         // 对所有邻接顶点递归调用DFSUtil函数
         for (auto i = adjList_[v].myList.begin(); i != adjList_[v].myList.end(); ++i)
         {
+            // 如果当前不是叶子节点，且子节点未报错，则表明信息信息可能断联
+            if (adjList_[v].myList.empty() != true)
+            {
+                int is_error = 0;
+                for (const auto& element : adjList_[v].myList)
+                {
+                    if(adjList_[element].is_error == true)
+                    {
+                        is_error += 1;
+                    }
+                }
+                if(is_error == 0)
+                {
+                    error_node_ref_.push_back(v);
+                }
+                
+            }
             if(adjList_[*i].is_error == true)
             {
+                
                 DFSUtil(*i);
                 if (adjList_[*i].myList.empty()) // node没有子node时，为根因
                 {
@@ -75,6 +96,24 @@ public:
     // 执行深度优先搜索
     void DFS(int node_ref)
     {
+        // 如果当前不是叶子节点，且子节点未报错，则表明信息信息可能断联
+        if (adjList_[node_ref].myList.empty() != true)
+        {
+            int is_error = 0;
+            for (const auto& element : adjList_[node_ref].myList)
+            {
+                if(adjList_[element].is_error == true)
+                {
+                    is_error += 1;
+                }
+            }
+            if(is_error == 0)
+            {
+                error_node_ref_.push_back(node_ref);
+            }
+            
+        }
+
         // 如果报错节点没有子节点，则节点就是根因
         if (adjList_[node_ref].myList.empty())
         {
@@ -98,14 +137,14 @@ private:
 
 int main() {
     Graph graph;
-    graph.addNode(0x10, false);
+    graph.addNode(0x10, true);
     graph.addNode(0x11, false);
     graph.addNode(0x12, false);
     graph.addNode(0x13, false);
     graph.addNode(0x14, false);
     graph.addNode(0x15, false);
     graph.addNode(0x16, false);
-    graph.addNode(0x17, true);
+    graph.addNode(0x17, false);
     graph.addNode(0x18, false);
 
     graph.addEdge(0x10, 0x11);
@@ -118,14 +157,36 @@ int main() {
     graph.addEdge(0x14, 0x17);
     graph.addEdge(0x15, 0x18);
 
+    // 1
+    // graph.addError(0x17);
+    // graph.addError(0x14);
+    // graph.addError(0x13);
+    // graph.addError(0x11);
+    graph.addError(0x10);
+
+    // 2
     graph.addError(0x17);
     graph.addError(0x14);
     graph.addError(0x13);
     graph.addError(0x11);
     graph.addError(0x10);
 
+    // 3
+    graph.addError(0x17);
+    graph.clearError(0x13);
+    graph.clearError(0x14);
+    // graph.addError(0x14);
+    // graph.addError(0x13);
+    graph.addError(0x11);
+    graph.addError(0x10);
 
 
+    // 4
+    graph.addError(0x17);
+    graph.addError(0x14);
+    // graph.addError(0x13);
+    graph.addError(0x11);
+    graph.addError(0x10);
 
     return 0;
 }
