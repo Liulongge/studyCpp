@@ -4,7 +4,8 @@
 #include <atomic>
 #include <thread>
 #include <vector>
-
+#include <mutex>
+std::mutex g_mtx; 
 std::atomic<int> g_counter(0); // 定义一个原子变量counter并初始化为0
 // int g_counter(0); // 定义一个原子变量counter并初始化为0
 
@@ -12,6 +13,7 @@ void increment_counter(int n)
 {
     for (int i = 0; i < n; ++i)
     {
+        // std::unique_lock<std::mutex> lock(g_mtx);
         g_counter += 2; // 原子地增加counter的值
     }
 }
