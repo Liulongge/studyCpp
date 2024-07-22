@@ -40,5 +40,6 @@ int main() {
     // delete[] globalArray;  
     std::vector<int> num;
     num.push_back(1);
+    num.push_back(1);
     return 0;  
 }
