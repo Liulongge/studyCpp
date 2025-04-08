@@ -83,6 +83,7 @@
         "stack": "cpp",
         "variant": "cpp",
         "unordered_set": "cpp",
-        "syscall.h": "c"
+        "syscall.h": "c",
+        "shared_mutex": "cpp"
     }
 }
